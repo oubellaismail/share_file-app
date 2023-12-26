@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFileRequest;
-use App\Http\Requests\UpdateFileRequest;
-use App\Models\File;
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
+use App\Models\Role;
 
-class FileController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('home');
+        //
     }
 
     /**
@@ -21,13 +21,13 @@ class FileController extends Controller
      */
     public function create()
     {
-        return view('file.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFileRequest $request)
+    public function store(StoreRoleRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class FileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(File $file)
+    public function show(Role $role)
     {
         //
     }
@@ -43,7 +43,7 @@ class FileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(File $file)
+    public function edit(Role $role)
     {
         //
     }
@@ -51,7 +51,7 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFileRequest $request, File $file)
+    public function update(UpdateRoleRequest $request, Role $role)
     {
         //
     }
@@ -59,7 +59,7 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(File $file)
+    public function destroy(Role $role)
     {
         //
     }

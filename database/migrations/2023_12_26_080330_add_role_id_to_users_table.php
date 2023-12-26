@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->integer('downloads_count');
-            $table->string('url');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('role_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

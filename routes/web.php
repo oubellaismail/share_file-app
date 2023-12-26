@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/register' ,[UserController::class ,'create'])->name('user.register');
+Route::post('/store', [UserController::class, 'store'])->name('user.store');
+
+Route::get('/login', [UserController::class, 'login'])->name('user.login');
+Route::post('/auth', [UserController::class, 'auth'])->name('user.auth');
+
+Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
+
+Route::get('/home', [FileController::class, 'index'])->name('home');
+Route::get('/file/create', [FileController::class, 'create'])->name('file.create');
