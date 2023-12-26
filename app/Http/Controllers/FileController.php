@@ -84,4 +84,14 @@ class FileController extends Controller
     {
         //
     }
+
+    public function download(File $file){
+        
+        $file->downloads_count ++;
+        $file->update([
+            'downloads_count' => $file->downloads_count
+        ]);
+
+        return response()->download(storage_path('app/public/' . $file->url));
+    }
 }

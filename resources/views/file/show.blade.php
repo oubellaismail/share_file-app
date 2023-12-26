@@ -12,7 +12,12 @@
         <h1 class="text-3xl font-bold mb-4">{{ $file->title }}</h1>
         <p class="mb-4">{{ $file->description }}</p>
         <p class="mb-4">Downloads: {{ $file->downloads_count }}</p>
-        <a href="{{ $file->url }}" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Download File</a>
+        <form action="{{route('file.download', $file->id)}}" method="post">
+            @csrf
+            @method('PUT')
+            <button type="submit">download File</button>
+        </form>
+
     </div>
 </body>
 </html>
