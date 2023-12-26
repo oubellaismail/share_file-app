@@ -15,16 +15,16 @@
         <div>
             @auth
                 <span class="mr-4">Hello, {{ auth()->user()->name }}</span>
-                <a href="{{ route('user.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="{{ route('user.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-blue-300 hover:text-blue-500">Logout</a>
                 <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                     @csrf
-                    <button type="submit">
+                    <button type="submit" class="hidden">
                         <i class="fa-solid fa-door-closed"></i> Logout
                     </button>
                 </form>
             @else
-                <a href="{{ route('user.login') }}" class="mr-4">Login</a>
-                <a href="{{ route('user.register') }}">Register</a>
+                <a href="{{ route('user.login') }}" class="mr-4 text-blue-300 hover:text-blue-500">Login</a>
+                <a href="{{ route('user.register') }}" class="text-blue-300 hover:text-blue-500">Register</a>
             @endauth
         </div>
     </nav>
@@ -33,13 +33,16 @@
         <div class="flex justify-end mb-4">
             <a href="{{ route('file.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add New File</a>
         </div>
-        <div class="grid grid-cols-3 gap-4">
-            {{-- @foreach ($products as $product)
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            @foreach ($files as $file)
                 <div class="bg-gray-800 p-4 rounded-lg">
-                    <img src="" alt="not found !" class="mb-2">
-                    <a href="" class="text-blue-500 hover:underline">Prod</a>
+                    <a href="/file/show/{{$file->id}}">
+                         <h2 class="text-xl font-bold mb-2">{{$file->title}}</h2>
+                    </a>
+                    <p>{{$file->description}}</p>
+                    <a href="{{$file->url}}" class="text-blue-300 hover:text-blue-500 block mt-2">Download</a>
                 </div>
-            @endforeach --}}
+            @endforeach
         </div>
     </div>
 </body>

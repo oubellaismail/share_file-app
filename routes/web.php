@@ -30,3 +30,5 @@ Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
 
 Route::get('/home', [FileController::class, 'index'])->name('home');
 Route::get('/file/create', [FileController::class, 'create'])->name('file.create');
+Route::post('/file/store', [FileController::class, 'store'])->name('file.store');
+Route::get('/file/show/{file}', [FileController::class, 'show'])->name('file.show');

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class File extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'description', 'downloads_count', 'url', 'category_id', 'user_id'];
     
     public function tags(){
 

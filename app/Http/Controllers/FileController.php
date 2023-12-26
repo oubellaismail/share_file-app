@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
+use App\Models\Category;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
-use App\Models\File;
 
 class FileController extends Controller
 {
@@ -13,7 +14,9 @@ class FileController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', [
+            'files' => File::all(),
+        ]);
     }
 
     /**
@@ -21,15 +24,31 @@ class FileController extends Controller
      */
     public function create()
     {
-        return view('file.create');
+        return view('file.create', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFileRequest $request)
+    public function store()
     {
-        //
+        $formFields = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $formFields['downloads_count'] = 0;
+
+        $formFields['url'] = request()->file('file')->store('files', 'public');
+
+        $formFields['user_id'] = auth()->id();
+        File::create($formFields);
+
+        return redirect('/home')->with('success', 'listing has been added successfuly !');
+
     }
 
     /**
@@ -37,7 +56,9 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        //
+        return view('file.show', [
+            'file' => $file
+        ]);
     }
 
     /**

@@ -10,7 +10,7 @@
 <body class="bg-gray-900 text-white flex justify-center items-center h-screen">
     <div class="bg-gray-800 rounded-lg p-6 w-full max-w-md">
         <h1 class="text-3xl font-bold mb-4 text-center">Add File</h1>
-        <form method="POST" action="" enctype="multipart/form-data">
+        <form method="POST" action="{{route('file.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label for="title" class="block mb-2 font-bold text-gray-300">Title</label>
@@ -28,11 +28,11 @@
             </div>
 
 <div class="mb-4">
-    <label for="categories" class="block mb-2 font-bold text-gray-300">Categories:</label>
-    <select id="categories" name="categories" class="shadow appearance-none border rounded w-full py-2 px-3  text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200">
-        <option value="category1">Category 1</option>
-        <option value="category2">Category 2</option>
-        <option value="category3">Category 3</option>
+    <label for="category_id" class="block mb-2 font-bold text-gray-300">Category:</label>
+    <select id="category_id" name="category_id" class="shadow appearance-none border rounded w-full py-2 px-3  text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200">
+        @foreach ($categories as $category)
+            <option value="{{$category->id}}">{{$category->name}}</option>
+        @endforeach
     </select>
 </div>
 

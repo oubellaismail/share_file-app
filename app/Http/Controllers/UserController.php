@@ -36,8 +36,12 @@ class UserController extends Controller
             'password' => ['required', 'confirmed', 'min:6']
         ]);
 
+        $validator['role_id'] = 1;
+
         $validator['password'] = Hash::make($validator['password']);
         User::create($validator);
+
+        return view('home');
     }
 
  
