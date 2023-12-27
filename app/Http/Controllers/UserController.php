@@ -39,9 +39,9 @@ class UserController extends Controller
         $validator['role_id'] = 1;
 
         $validator['password'] = Hash::make($validator['password']);
-        User::create($validator);
-
-        return view('home');
+        $user = User::create($validator);
+        auth()->login($user);
+        return redirect()->intended(route('home'));
     }
 
  
@@ -84,10 +84,10 @@ class UserController extends Controller
 
         if(auth()->attempt($form_fields)) {
             request()->session()->regenerate();
-            return redirect()->intended('/home');
+            return redirect()->intended(route('home'));
         }
 
-        return back()->withErrors('Invalid password or email');
+        return back()->withErrors(['error' => 'Invalid password or email']);
     }
 
     public function logout(){
@@ -95,6 +95,6 @@ class UserController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerate();
 
-        return redirect(view('home')) -> with('success', 'User logged out successfully !');
+        return redirect(route('home')) -> with('success', 'User logged out successfully !');
     }
 }

@@ -15,7 +15,7 @@ class FileController extends Controller
     public function index()
     {
         return view('home', [
-            'files' => File::all(),
+            'files' => File::with('user', 'category')->latest()->filter(request(['category']))->get(),
         ]);
     }
 
@@ -87,11 +87,21 @@ class FileController extends Controller
 
     public function download(File $file){
         
-        $file->downloads_count ++;
-        $file->update([
-            'downloads_count' => $file->downloads_count
-        ]);
+        if(auth()->check()) {
+            
+            $file->downloads_count ++;
+            $file->update([
+                'downloads_count' => $file->downloads_count
+            ]);
+    
+            return response()->download(storage_path('app/public/' . $file->url));
 
-        return response()->download(storage_path('app/public/' . $file->url));
+        }
+
+        return back()->withErrors(['error' => 'You cannot download this file if you are not logged in !']);
+    }
+
+    public function manage(){
+        
     }
 }

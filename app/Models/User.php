@@ -51,6 +51,6 @@ class User extends Authenticatable
     }
     
     public function files(){
-        return $this->belongsToMany(File::class);
+        return $this->hasMany(File::class);
     }
 }
