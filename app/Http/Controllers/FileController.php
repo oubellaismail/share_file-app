@@ -117,8 +117,15 @@ class FileController extends Controller
     }
 
     public function manage(){
-        return view('file.manage', [
-            'files' => auth()->user()->files()->get(),
-        ]);
+        if (auth()->user()->id == 1) {
+            return view('file.manage', [
+                'files' => File::with('user')->where('user_id', auth()->id())->get(),
+            ]);
+        }
+        else {
+            return view('file.manage', [
+                'files' => File::all()
+            ]);
+        }
     }
 }

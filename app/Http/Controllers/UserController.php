@@ -36,6 +36,7 @@ class UserController extends Controller
             'password' => ['required', 'confirmed', 'min:6']
         ]);
 
+        //role_id 1 => user 
         $validator['role_id'] = 1;
 
         $validator['password'] = Hash::make($validator['password']);

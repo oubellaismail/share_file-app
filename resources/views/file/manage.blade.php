@@ -44,7 +44,9 @@
                             @method('DELETE')
                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
                         </form>
-                        <a href="{{route('file.edit', $file->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
+                        @if(auth()->user()->id == $file->user->id)
+                            <a href="{{route('file.edit', $file->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
+                        @endif
                     </div>
                 </div>
             @endforeach
