@@ -15,7 +15,7 @@ class FileController extends Controller
     public function index()
     {
         return view('home', [
-            'files' => File::with('user', 'category')->latest()->filter(request(['category']))->get(),
+            'files' => File::with('user', 'category')->latest()->filter(request(['category']))->orderBy('downloads_count', 'desc')->get(),
         ]);
     }
 

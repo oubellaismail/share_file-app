@@ -28,7 +28,7 @@ Route::post('/auth', [UserController::class, 'auth'])->name('user.auth');
 
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout')->middleware('auth');
 
-Route::get('/home', [FileController::class, 'index'])->name('home');
+Route::get('/', [FileController::class, 'index'])->name('home');
 Route::get('/file/create', [FileController::class, 'create'])->name('file.create')->middleware('auth');
 Route::post('/file/store', [FileController::class, 'store'])->name('file.store');
 Route::get('/file/show/{file}', [FileController::class, 'show'])->name('file.show');
