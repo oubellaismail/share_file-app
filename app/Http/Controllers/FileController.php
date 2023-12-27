@@ -25,7 +25,8 @@ class FileController extends Controller
     public function create()
     {
         return view('file.create', [
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'file' => null
         ]);
     }
 
@@ -66,15 +67,28 @@ class FileController extends Controller
      */
     public function edit(File $file)
     {
-        //
+        return view('file.create', [
+            'file' => $file,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFileRequest $request, File $file)
+    public function update(File $file)
     {
-        //
+        $form_fields = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $formFields['url'] = request()->file('file')->store('files', 'public');
+
+        $file->update($form_fields);
+
+        return redirect()->route('file.manage');
     }
 
     /**
@@ -82,7 +96,8 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        $file->delete();
+        return back();
     }
 
     public function download(File $file){
@@ -102,6 +117,8 @@ class FileController extends Controller
     }
 
     public function manage(){
-        
+        return view('file.manage', [
+            'files' => auth()->user()->files()->get(),
+        ]);
     }
 }

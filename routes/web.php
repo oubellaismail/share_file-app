@@ -20,17 +20,20 @@ Route::get('/', function () {
     return view('welcome');
         });
 
-Route::get('/register' ,[UserController::class ,'create'])->name('user.register');
+Route::get('/register' ,[UserController::class ,'create'])->name('user.register')->middleware('guest');
 Route::post('/store', [UserController::class, 'store'])->name('user.store');
 
-Route::get('/login', [UserController::class, 'login'])->name('user.login');
+Route::get('/login', [UserController::class, 'login'])->name('user.login')->middleware('guest');
 Route::post('/auth', [UserController::class, 'auth'])->name('user.auth');
 
-Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
+Route::post('/logout', [UserController::class, 'logout'])->name('user.logout')->middleware('auth');
 
 Route::get('/home', [FileController::class, 'index'])->name('home');
 Route::get('/file/create', [FileController::class, 'create'])->name('file.create')->middleware('auth');
 Route::post('/file/store', [FileController::class, 'store'])->name('file.store');
 Route::get('/file/show/{file}', [FileController::class, 'show'])->name('file.show');
 Route::put('/file/download/{file}', [FileController::class, 'download'])->name('file.download');
-Route::get('/file/manage', [FileController::class, 'manage'])->name('file.manage');
+Route::get('/file/manage', [FileController::class, 'manage'])->name('file.manage')->middleware('auth');
+Route::get('/file/edit/{file}', [FileController::class, 'edit'])->name('file.edit')->middleware('auth');;
+Route::put('/file/update/{file}', [FileController::class, 'update'])->name('file.update')->middleware('auth ');
+Route::delete('/file/delete/{file}', [FileController::class, 'destroy'])->name('file.delete')->middleware('auth');
