@@ -15,7 +15,7 @@ class FileController extends Controller
     public function index()
     {
         return view('home', [
-            'files' => File::with('user', 'category')->latest()->filter(request(['category']))->orderBy('downloads_count', 'desc')->get(),
+            'files' => File::with('user', 'category')->filter(request(['category']))->orderBy('downloads_count', 'desc')->latest()->get(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class FileController extends Controller
         $formFields['user_id'] = auth()->id();
         File::create($formFields);
 
-        return redirect('/home')->with('success', 'listing has been added successfuly !');
+        return redirect('/')->with('success', 'listing has been added successfuly !');
 
     }
 
